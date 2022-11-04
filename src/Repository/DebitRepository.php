@@ -54,6 +54,23 @@ class DebitRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+    /**
+     * @return Debit[] Returns an array of Debit objects
+     */
+    public function findByMois($value): array
+    {
+        return $this->createQueryBuilder('d')
+            ->join('d.id = dm.debit_id ', 'dm')
+            ->join('m', )
+            ->andWhere('d.id = :val')
+            ->setParameter('val', $value)
+            ->orderBy('d.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    public function findOneBySomeField($value): ?Debit
 //    {
 //        return $this->createQueryBuilder('d')
@@ -63,4 +80,6 @@ class DebitRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
 }
