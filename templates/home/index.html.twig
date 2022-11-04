@@ -3,5 +3,14 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-
+    <section class="row justify-content-center m-2">
+        <div id="debit">Loading...</div>
+    </section>
+{% endblock %}
+{% block js %}
+<script>
+    $(function() {
+        $('#debit').initDataTables({{ datatable_settings(datatable) }});
+    });
+</script>
 {% endblock %}
