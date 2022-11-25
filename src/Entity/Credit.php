@@ -57,8 +57,11 @@ class Credit
     public function setMontant(float $montant): self
     {
         $this->montant = $montant;
-
         return $this;
+    }
+
+    public function __toString(){
+        return $this->title; // Remplacer champ par une propriété "string" de l'entité
     }
 
     /**

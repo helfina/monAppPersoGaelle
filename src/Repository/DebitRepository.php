@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Debit;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,8 +17,9 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class DebitRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
     {
+        $this->entityManager = $entityManager;
         parent::__construct($registry, Debit::class);
     }
 
@@ -57,18 +59,28 @@ class DebitRepository extends ServiceEntityRepository
     /**
      * @return Debit[] Returns an array of Debit objects
      */
-    public function findByMois($value): array
+    public function findAllByMois($mois): array
     {
-        return $this->createQueryBuilder('d')
-            ->join('d.id = dm.debit_id ', 'dm')
-            ->join('m', )
-            ->andWhere('d.id = :val')
-            ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $results = $this->entityManager->createQuery('SELECT d, m 
+        FROM App\Entity\Debit d 
+        INNER JOIN d.id_mois m WHERE m.id=:id')
+
+            ->setParameter('id', intval($mois));
+
+
+        return $results->getResult();
+    }
+    /**
+     * @return Debit[] Returns an array of Debit objects
+     */
+    public function findSumByMois($mois): array
+    {
+        $results = $this->entityManager->createQuery('SELECT sum(d.montant) montantTotal, d, m 
+        FROM App\Entity\Debit d 
+        INNER JOIN d.id_mois m WHERE m.id=:id')
+            ->setParameter('id', intval($mois));
+
+        return $results->getResult();
     }
 
 //    public function findOneBySomeField($value): ?Debit

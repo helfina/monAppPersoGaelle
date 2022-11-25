@@ -74,6 +74,10 @@ class Mois
         return $this;
     }
 
+    public function __toString(){
+        return $this->title; // Remplacer champ par une propriété "string" de l'entité
+    }
+
     /**
      * @return Collection<int, Debit>
      */

@@ -10,7 +10,7 @@
 
 </head>
 <body class="row">
-<header class="col-12 container-fluid">
+<header class="col-12 container-fluid topbar">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-end">
         <a href="{{ path("app_home") }}" class="navbar-brand">LOGO</a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -34,14 +34,38 @@
         </div>
     </nav>
 </header>
-<nav class="nav flex-column col-2 bg-dark text-center">
-    <a class="nav-link" href="#">ajout mois</a>
-    <a class="nav-link" href="#">Link</a>
-    <a class="nav-link" href="#">Link</a>
-    <a class="nav-link" href="#">Link</a>
-</nav>
+<aside class="col-2 left-sidebar h-100 flex-column  text-center  ">
+<nav class="navbar navbar-expand-lg bg-dark ">
+    <ul>
+        <li><a href="#">Mois</a>
+            <ul>
+                <li><a class="nav-link dropdown-item" href="{{ path('app_mois_index') }}">liste Mois</a></li>
+                <li><a class="nav-link dropdown-item" href="{{ path('app_mois_new') }}">ajout Mois</a></li>
+            </ul>
+        </li>
+        <li><a href="#">Debit</a>
+            <ul>
+                <li> <a class="nav-link dropdown-item" href="{{ path('app_debit_index') }}">liste Debit</a></li>
+                <li> <a class="nav-link dropdown-item" href="{{ path('app_debit_new') }}">ajout Debit</a></li>
+            </ul>
+        </li>
+        <li><a  href="#">Credit</a>
+            <ul>
+                <li><a class="nav-link dropdown-item" href="{{ path('app_credit_index') }}">liste Credit</a></li>
+                <li><a class="nav-link dropdown-item" href="{{ path('app_credit_new') }}">ajout Credit</a></li>
+            </ul>
+        </li>
+        <li><a href="#">Categories</a>
+            <ul>
+                <li> <a class="nav-link dropdown-item" href="{{ path('app_categories_index') }}">liste Categories</a></li>
+                <li> <a class="nav-link dropdown-item" href="{{ path('app_categories_new') }}">ajout Categories</a></li>
 
-<main class="col-10">
+            </ul>
+        </li>
+    </ul>
+</nav>
+</aside>
+<main class="page-wrapper col-10">
     {% block body %}{% endblock %}
 </main>
 

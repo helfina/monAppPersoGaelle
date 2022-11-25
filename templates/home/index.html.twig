@@ -3,14 +3,60 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-    <section class="row justify-content-center m-2">
-        <div id="debit">Loading...</div>
+    <section class="card m-3 justify-content-evenly">
+        <p class="card-body"><span>Total Credit :</span> {{ totalCredit }}</p>
+        <p class="card-body"><span>Total Debit :</span> {{ sumDebit[0].montantTotal }}</p>
+        <p class="card-body"><span>Reste :</span> {{ reste }}</p>
     </section>
+    <section class="card justify-content-center m-2">
+        <div id="debit" class="card-body">Loading...</div>
+
+    </section>
+
+    <section class="card justify-content-center m-2">
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Debit</th>
+                    <th>Montant</th>
+                    <th>Mois</th>
+                </tr>
+                </thead>
+                <tbody
+                {% for debit in debits %}
+                    <tr>
+                        <td>{{ debit.title }}</td>
+                        <td>{{ debit.montant }}</td>
+                        {% for mois in debit.idMois %}
+                            <td>{{ mois.title }}</td>
+                        {% endfor %}
+                    </tr>
+
+                {% endfor %}
+            </table>
+        </div>
+    </section>
+
 {% endblock %}
 {% block js %}
-<script>
-    $(function() {
-        $('#debit').initDataTables({{ datatable_settings(datatable) }});
-    });
-</script>
+    <script>
+        $(function () {
+            $('#debit').initDataTables({{ datatable_settings(datatable) }},{
+                searching: true,
+                dom:'<"html5buttons"B>lTfgitp',
+                ajax : true,
+                buttons: [
+                    'copy',
+                    { extend: 'pdf', title: 'domains'},
+                    { extend: 'print' }
+                ]
+            }).then(function(dt) {
+                // dt contains the initialized instance of DataTables
+                dt.on('draw', function() {
+                    alert('Redrawing table');
+                })
+            });
+        });
+    </script>
 {% endblock %}

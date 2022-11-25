@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Credit;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,8 +17,9 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CreditRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry,  EntityManagerInterface $entityManager)
     {
+        $this->entityManager = $entityManager;
         parent::__construct($registry, Credit::class);
     }
 
@@ -37,6 +39,33 @@ class CreditRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @return Credit[] Returns an array of Credit objects
+     */
+    public function findAllByMois($mois): array
+    {
+        $results = $this->entityManager->createQuery('SELECT c, m 
+        FROM App\Entity\Credit c 
+        INNER JOIN c.id_mois m WHERE m.id=:id')
+
+            ->setParameter('id', intval($mois));
+
+        return $results->getResult();
+    }
+    /**
+     * @return Credit[] Returns sum of Credit objects
+     */
+    public function findSumByMois($mois): array
+    {
+        $results = $this->entityManager->createQuery('SELECT sum(c.montant) montantTotal c, m 
+        FROM App\Entity\Credit c 
+        INNER JOIN c.id_mois m WHERE m.id=:id')
+
+            ->setParameter('id', intval($mois));
+
+        return $results->getResult();
     }
 
 //    /**
