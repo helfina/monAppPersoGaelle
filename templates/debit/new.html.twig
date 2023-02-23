@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Debit{% endblock %}
+
+{% block body %}
+    <h1>Create new Debit</h1>
+
+    {{ include('debit/_form.html.twig') }}
+
+    <a href="{{ path('app_debit_index') }}">back to list</a>
+{% endblock %}

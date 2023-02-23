@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Debit{% endblock %}
+
+{% block body %}
+    <h1>Edit Debit</h1>
+
+    {{ include('debit/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_debit_index') }}">back to list</a>
+
+    {{ include('debit/_delete_form.html.twig') }}
+{% endblock %}

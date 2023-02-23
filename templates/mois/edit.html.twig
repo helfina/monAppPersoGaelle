@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Mois{% endblock %}
+
+{% block body %}
+    <h1>Edit Mois</h1>
+
+    {{ include('mois/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_mois_index') }}">back to list</a>
+
+    {{ include('mois/_delete_form.html.twig') }}
+{% endblock %}

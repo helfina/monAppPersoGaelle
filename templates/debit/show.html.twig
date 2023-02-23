@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Debit{% endblock %}
+
+{% block body %}
+    <h1>Debit</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ debit.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ debit.title }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ debit.montant }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_debit_index') }}">back to list</a>
+
+    <a href="{{ path('app_debit_edit', {'id': debit.id}) }}">edit</a>
+
+    {{ include('debit/_delete_form.html.twig') }}
+{% endblock %}

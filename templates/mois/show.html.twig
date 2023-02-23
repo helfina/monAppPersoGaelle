@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mois{% endblock %}
+
+{% block body %}
+    <h1>Mois</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ moi.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ moi.title }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_mois_index') }}">back to list</a>
+
+    <a href="{{ path('app_mois_edit', {'id': moi.id}) }}">edit</a>
+
+    {{ include('mois/_delete_form.html.twig') }}
+{% endblock %}
